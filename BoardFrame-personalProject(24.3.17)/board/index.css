@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+#allContainer {
+  width: 1000px;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#boardTable {
+  width: 100%;
+  height: auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+#boardTable #boardTableTbody #boardTableHeaderRow,
+#boardTable #boardTableTbody .boardTableRow {
+  height: 50px;
+  border-right: 0px;
+  border-left: 0px;
+}
+#boardTableHeaderRow,
+.boardTableRow {
+  border: 1px solid gray;
+}
+#boardTableHeaderRow {
+  background-color: beige;
+}
+#boardTable #boardTableTbody .boardTableRow.isNotExist{
+  all:unset;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.boardTableHeaderPart {
+  color: blue;
+  font-weight: 900;
+}
+.boardTableRow {
+  cursor: pointer;
+}
+.boardTableRow:hover {
+  background-color: gainsboro;
+  color: brown;
+}
+#boardIndex {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+#boardIndex span {
+  width: 30px;
+  height: 30px;
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dotted coral;
+  cursor: pointer;
+}
+#boardIndex .indexNum:hover,
+#boardIndex .indexButton:hover {
+  color: red;
+}
+#boardIndex .indexNum.currentPage {
+  color: black;
+  font-weight: bold;
+  cursor: default;
+}
+#boardIndex .indexButton.buttonDontTouch {
+  color: grey;
+  cursor: default;
+}
+#boardIndex .indexNum.buttonDontTouch{
+  all:unset;
+  width: 0;
+  height: 0;
+  opacity:0;
+}
+#buttonsLine {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  height: 30px;
+  gap: 0;
+}
+#searchButtons{
+  width: 100%;
+}
+/* #buttonsLine select,
+#buttonsLine input,
+#buttonsLine button {
+} */
+#writeTextButtonFrame{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}

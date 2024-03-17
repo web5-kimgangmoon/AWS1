@@ -1,0 +1,243 @@
+* {
+  box-sizing: border-box;
+}
+
+#allContainer {
+  width: 800px;
+  height: auto;
+  margin: auto;
+}
+
+#writerContainer {
+  width: 100%;
+  height: auto;
+}
+
+#writerContainer #etcData,
+#writerContainer #title,
+#writerContainer #textContent {
+  margin-top: 10px;
+  border-right: 0px;
+  border-left: 0px;
+}
+#title {
+  display: flex;
+  height: 100px;
+  border: 3px double black;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+#etcData {
+  display: flex;
+  height: 50px;
+  border: 1px solid brown;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#textContent {
+  padding-top: 10px;
+  width: 100%;
+  height: fit-content;
+  border: 1px solid gray;
+  word-break:break-all;
+  white-space: pre-wrap;
+}
+#topButtons{
+  display: flex;
+  height: 50px;
+  padding-top: 10px;
+  justify-content: left;
+}
+.returnBoard {
+  width: 50px;
+  height: 30px;
+  margin: 0px 10px 0px 0px;
+}
+#writerButtons{
+  all:unset;
+  opacity: 0;
+}
+#writerButtons.isWriter{
+  display: flex;
+  height: 100%;
+  gap: 10px;
+  opacity: 1;
+}
+.textEdit{
+  width: 60px;
+  height: 30px;
+  opacity: 1;
+}
+.textDelete{
+  width: 50px;
+  height: 30px;
+  opacity: 1;
+}
+#commentContainer {
+  width: 100%;
+  height: auto;
+}
+#commentInputContainer {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+}
+.commentConfirm {
+  width: 50px;
+  height: 30px;
+  margin-left: 20px;
+}
+#commentInput {
+  width: 80%;
+  height: 100px;
+  margin-bottom: 20px;
+}
+#commentCount {
+  border-bottom: 1px solid gray;
+  margin: 10px 0px 10px 0px;
+}
+#commentBox {
+  width: 100%;
+  height: auto;
+}
+.commentEachContainer {
+  display: flex;
+  height: auto;
+  border-bottom: 1px solid blueviolet;
+  border-right: 0px;
+  border-left: 0px;
+}
+.commentEachContainer.isNotExist{
+  all:unset;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.commentEachContainer:hover {
+  background-color: wheat;
+}
+.commentEachContainer:first-of-type {
+  border-top: 1px solid blueviolet;
+}
+/* .commentReplySymbol {
+
+} */
+.commentReplySymbol.isReply {
+  padding: 0px 10px 0px 0px;
+  background-color: chocolate;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color:blue;
+  font-size: 20px;
+  word-break: keep-all;
+}
+.commentBox {
+  width: 100%;
+ height: auto;
+
+}
+.commentAuthorDate {
+  display: flex;
+  height: 30px;
+}
+.commentAuthor {
+  text-align: left;
+  width:100%;
+}
+.commentDate {
+  text-align: right;
+  width: 100%;
+}
+#commentButtonsBox{
+  display: flex;
+  width: auto;
+}
+.commentDelete{
+  all:unset;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.commentDelete.isWriter{
+  width: 50px;
+  height: 25px;
+  margin: 3px 0px 0px 20px;
+}
+.commentReply{
+    width: 50px;
+    height: 25px;
+    margin: 3px 0px 0px 20px;
+}
+.commentReply.isReply{
+  all:unset;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.commentTextBox {
+  display: flex;
+  height: auto;
+  padding-bottom: 10px;
+}
+.commentText{
+  word-break:break-all;
+}
+.commentReplyInput{
+  margin-right: 10px;
+  width: 80%;
+}
+.commentReplyInput.DontReply{
+  all:unset;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.commentReplyButton.DontReply {
+  all:unset;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+#commentIndex {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+#commentIndex span {
+  width: 30px;
+  height: 30px;
+  margin-right:30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dotted coral;
+  cursor: pointer;
+}
+#commentIndex .indexNum:hover,
+#commentIndex .indexButton:hover {
+  color: red;
+}
+#commentIndex .indexNum.currentPage {
+  color: black;
+  font-weight: bold;
+  cursor: default;
+}
+#commentIndex .indexButton.buttonDontTouch{
+  color: grey;
+  cursor: default;
+}
+#commentIndex .indexNum.buttonDontTouch{
+  all:unset;
+  width: 0;
+  height: 0;
+  opacity:0;
+}
