@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+#allcontainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+#topButtonsContainer {
+  width: 100%;
+  height: 150px;
+  margin: 0px;
+  border: 1px solid black;
+  position: sticky;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#topLineBox {
+  display: flex;
+  height: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.leftLine {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.rightLine {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+.logo {
+  padding-left: 20px;
+  display: flex;
+  column-gap: 5px;
+}
+#textContainer {
+  width: 60%;
+  min-height: calc(100% - 150px);
+  height: auto;
+  border: 1px solid black;
+}
+#textBox {
+}
+#title {
+}
+.inputTitle {
+  border: 0px;
+  outline: 0px;
+}
+#text {
+}
+.inputText {
+  scrollbar-width: none;
+  border: 0px;
+  outline: 0px;
+  resize: none;
+}
+#additionalButtonsBox {
+}
+#screenHelpButtonsBox {
+}

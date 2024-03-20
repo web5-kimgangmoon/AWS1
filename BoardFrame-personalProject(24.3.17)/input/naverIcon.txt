@@ -1,0 +1,2 @@
+<i class="icon_wrap__VHKFf"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13" aria-hidden="true" class="icon__X_qrd"><g fill="none" fill-rule="evenodd"><rect width="11" height="13" fill="#FFF" rx="1"></rect><path d="M2 9h4v1H2zm0-2h7v1H2zm0-2h7v1H2zm0-2h7v1H2z" fill="#00C73C"></path></g></svg></i>
+//네이버가 직접 그린 아이콘
