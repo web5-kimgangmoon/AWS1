@@ -1,17 +1,23 @@
-console.log("1. node server로 서버 실행");
 const express = require("./lib/express");
+const path = require("path");
 const app = express();
 
+const boardRoot = path.join(__dirname, "..", "board");
+
 app.get("/", (req, res) => {
-  res.end("now testing express server");
+  res.end("이건 어차피");
 });
 
-app.get("/test", (req, res) => {
-  res.end("now testing express server");
+app.get("/board", (req, res) => {
+  res.sendFile(path.join(boardRoot, "board.html"));
 });
 
-app.get("/test1", (req, res) => {
-  res.end("now testing express server");
+app.get("/board.css", (req, res) => {
+  res.sendFile(path.join(boardRoot, "board.css"));
+});
+
+app.get("/board.js", (req, res) => {
+  res.sendFile(path.join(boardRoot, "board.js"));
 });
 
 app.listen(3002, () => {

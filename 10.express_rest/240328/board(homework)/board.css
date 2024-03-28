@@ -1,0 +1,118 @@
+body {
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.box-center {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+#root {
+  max-width: 1000px;
+  padding: 2rem;
+  margin: auto;
+}
+
+#list,
+#list ul {
+  padding: 0;
+}
+
+#list li {
+  display: block;
+}
+
+#list .header {
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+#list .item {
+  border-bottom: 1px solid lightgray;
+}
+
+#list .item:hover {
+  background-color: beige;
+}
+#list .notice .row {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#list .row {
+  display: flex;
+}
+
+#list .row li {
+  padding: 0.5rem 1rem;
+  min-width: 2rem;
+}
+
+#list .row li.title {
+  flex: 1;
+}
+
+#list .row li.writer,
+#list .row li.createdAt {
+  min-width: 10rem;
+}
+
+#write div {
+  padding: 0.5rem 1rem;
+}
+
+#write .input-box {
+  display: flex;
+  align-items: center;
+}
+
+#write .input-box input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+#write .input-box label {
+  width: 4rem;
+  display: inline-block;
+}
+
+/* 아래는 추가한 내용 */
+
+#write .input-box textarea {
+  flex: 1;
+  padding: 0.5rem;
+  height: 15rem;
+  resize: none;
+}
+
+section {
+  border: 1px solid black;
+}
+
+article span {
+  color: blue;
+}
+
+article h4 {
+  display: inline-block;
+  margin: 0;
+  padding: 0.6rem;
+}
+
+#titleBoard {
+  text-align: center;
+}
+
+/* article:first-of-type::after {
+  content: "";
+  width: 50%;
+  border: 3px double black;
+} */
+
+/* #writerBoard{}
+#createdAtBoard{} */
+
+#contentBoard {
+  word-break: break-all;
+  white-space: pre-wrap;
+}

@@ -39,7 +39,6 @@ const app = {
 };
 
 const server = net.createServer((client) => {
-  console.log("100. data 이벤트 발생 시 처리하는 코드를 추가");
   client.on("data", (data) => {
     console.log("101. 11111");
     const req = makeReq(data);
