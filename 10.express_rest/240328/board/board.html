@@ -48,11 +48,22 @@
             <input type="text" id="writer" />
           </div>
           <div>
-            <button id="add-btn">둥록</button>
+            <textarea type="text" id="content"></textarea>
+          </div>
+          <div>
+            <button id="add-btn">등록</button>
             <button type="reset" id="cancel-btn">취소</button>
           </div>
         </fieldset>
       </form>
+    </div>
+    <div>
+      <h1 id="view-title" class="box-center"></h1>
+      <div class="box-center">
+        <span id="view-writer"></span>
+        <span id="view-created_at"></span>
+      </div>
+      <p id="view-content" class="box-center"></p>
     </div>
     <script src="board.js"></script>
   </body>
