@@ -1,0 +1,11 @@
+{
+  "name": "aws1",
+  "version": "1.0.0",
+  "description": "- 배포용\r - 가장 먼저 보이는 브랜치, 주 브랜치\r - 평소에 코드를 적는 것은?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
