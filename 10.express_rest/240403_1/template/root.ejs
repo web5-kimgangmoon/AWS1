@@ -1,0 +1,28 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" link="/static.css">
+  </head>
+  <body>
+    <div id="root">
+      <div class="header">
+        <%- include('static/header', header) %>
+        <!-- 첫번째 매개변수는 경로명, render()함수로 받아온 객체를 공유할 경로를 알려준다.
+        두번째 매개변수는 보내줄 객체의 변수인데, 없다면 전부 다 보내준다.
+      객체 형식으로 보내주게 되는데, 받아줄 단일객체라면 이름을 적어줄 필요는 없게된다.-->
+      </div>
+      <div class="list"></div>
+      <div class="container">
+        <%- include( container || "static/404") %>
+        <!-- container는 변수다. 꼬인거처럼 보이지만 꼬이지 않았다.
+        container에 적절한 파일경로를 적어주면 된다.-->
+      </div>
+      <div class="footer">
+        <%- include("static/footer") %>
+        <!--  -->
+      </div>
+    </div>
+  </body>
+</html>
