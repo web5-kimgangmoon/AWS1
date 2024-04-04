@@ -1,0 +1,35 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+  </head>
+  <body>
+    <form action="/write" method="post" enctype="multipart/form-data">
+      <!-- Content-Type: x-www-form-urlencoded -->
+      <input id="input-img" type="file" name="img" multiple accept="img/*" />
+      <input type="hidden" name="name" value="testing" />
+      <button>upload</button>
+    </form>
+    <div id="preview"></div>
+    <script>
+      document.getElementById("input-img").onchange = (e) => {
+        console.log(e.target);
+        console.dir(e.target.files);
+        // 새로운 value값이 들어간다.
+        const parentElem = document.getElementById("preview");
+        parentElem.innerHTML = "";
+        console.log(e.target.files);
+        console.log(typeof e.target.files);
+        console.log(typeof []);
+        [...e.target.files].forEach((file) => {
+          console.log(file);
+          parentElem.innerHTML += `<img src="${URL.createObjectURL(file)}">`;
+          //   const temp = document.createElement("img");
+          //   temp.src = URL.createObjectURL(file);
+          //   parentElem.append(temp);
+        })
+      };
+    </script>
+  </body>
+</html>
