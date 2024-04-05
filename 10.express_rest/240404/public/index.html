@@ -19,9 +19,6 @@
         // 새로운 value값이 들어간다.
         const parentElem = document.getElementById("preview");
         parentElem.innerHTML = "";
-        console.log(e.target.files);
-        console.log(typeof e.target.files);
-        console.log(typeof []);
         [...e.target.files].forEach((file) => {
           console.log(file);
           parentElem.innerHTML += `<img src="${URL.createObjectURL(file)}">`;
