@@ -207,3 +207,31 @@ exit
 ```bash
 
 ```
+
+## mySQL 삭제
+
+```bash
+brew services stop mysql
+which mysql
+brew uninstall --force mysql
+brew cleanup
+
+sudo rm -rf /usr/local/mysql
+sudo rm -rf /usr/local/bin/mysql
+sudo rm -rf /usr/local/var/mysql
+sudo rm -rf /usr/local/Cellar/mysql
+sudo rm -rf /usr/local/mysql*
+sudo rm -rf /tmp/mysql.sock.lock
+sudo rm -rf /tmp/mysqlx.sock.lock
+sudo rm -rf /tmp/mysql.sock
+sudo rm -rf /tmp/mysqlx.sock
+sudo rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+sudo rm -rf /Library/StartupItems/MySQLCOM
+sudo rm -rf /Library/PreferencePanes/My*
+```
+
+## mySQL 8.0 설치
+
+```bash
+brew install mysql@8.0
+```
