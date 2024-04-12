@@ -80,7 +80,7 @@ drop database AWS_TEST;
 ## 사용자 권한 설정
 
 ```sql
-grant all priviledges on AWS_TEST.* to aws;
+grant all privileges on AWS_TEST.* to aws;
 ```
 
 # 데이터베이스 세팅
