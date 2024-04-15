@@ -1,0 +1,23 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/uploader/uploads" method="post" enctype="multipart/form-data">
+      <input id="file" type="file" name="img" accept="img/*" multiple />
+      <button>보내기</button>
+      <div></div>
+    </form>
+    파일 올리는 곳?
+  </body>
+  <script>
+    document.getElementById("file").onchange = (e) => {
+      const files = [...e.target.files];
+      files.forEach((file) => {
+        document.getElementsByTagName("div")[0].innerHTML += `<img src="${URL.createObjectURL(file)}" />`;
+      })
+    }
+  </script>
+</html>
