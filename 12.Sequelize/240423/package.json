@@ -1,0 +1,25 @@
+{
+  "name": "240423",
+  "version": "1.0.0",
+  "description": "```sql\r CREATE TABLE user_crypto (\r     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,\r     user_id VARCHAR(50) UNIQUE NOT NULL,\r     pw VARCHAR(64) NOT NULL,\r     phone VARCHAR(13) NOT NULL\r )\r ```",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "mysql2": "^3.9.7",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
+  }
+}

@@ -1,2 +1,2 @@
-const cokie = document.cookie;
-console.log(cookie);
+// const cokie = document.cookie;
+// console.log(cookie);
