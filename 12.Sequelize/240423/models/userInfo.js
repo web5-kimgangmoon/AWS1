@@ -14,12 +14,23 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: "무명",
           },
+          age: {
+            type: DataTypes.INTEGER,
+          },
+          address: {
+            type: DataTypes.STRING(10),
+          },
+          gender: {
+            type: DataTypes.ENUM(["M", "F"]),
+            defaultValue: "M",
+          },
         },
         {
           sequelize,
           modelName: "UserInfo",
           tableName: "user_info",
           paranoid: true,
+          underscored: true,
         }
       );
     }

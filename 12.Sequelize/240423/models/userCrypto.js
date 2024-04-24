@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static init() {
       return super.init(
         {
-          userID: {
+          userId: {
             type: DataTypes.STRING(50),
             unique: true,
             allowNull: false,
@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
           tableName: "user_crypto",
           paranoid: true,
           timestamps: true,
+          underscored: true,
         }
       );
     }
