@@ -51,7 +51,7 @@ SELECT user_crypto.*, user_info.* FROM user_crypto INNER JOIN user_info ON user_
 
 SELECT uc.id, uc.user_id, uc.pw, uc.phone, ui.name, ui.nick FROM user_crypto AS uc INNER JOIN user_info AS ui ON uc.id=ui.id;
 
-SELECT user_crypto.*, user_info.* FROM user_crypto LEFT JOIN user_info ON user_crypto.id=user_info.id WHERE user_info.id IS NULL UNION SELECT user_crypto.*, user_info.* FROM user_crypto RIGHT JOIN user_info ON user_crypto.id =  user_info.id WHERE user_crypto.id IS NULL; -- 합집합
+SELECT user_crypto.*, user_info.* FROM user_crypto LEFT JOIN user_info ON user_crypto.id=user_info.id WHERE user_info.id IS NULL UNION SELECT user_crypto.*, user_info.* FROM user_crypto RIGHT JOIN user_info ON user_crypto.id=user_info.id WHERE user_crypto.id IS NULL; -- 합집합
 
 SELECT user_crypto.*, user_info.* FROM user_crypto LEFT JOIN user_info ON user_crypto.id=user_info.id WHERE user_info.id IS NULL UNION SELECT user_crypto.*, user_info.* FROM user_crypto RIGHT JOIN user_info ON user_crypto.id=user_info.id WHERE user_crypto.id IS NULL; -- 합집합 - 교집합
 ```
