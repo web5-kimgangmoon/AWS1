@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../../models");
+const { User, sequelize } = require("../../models");
 
 router.post("/regist", async (req, res) => {
   try {
@@ -36,4 +36,18 @@ router.post("/logout", async (req, res) => {
   res.redirect("/");
 });
 
+// 수업내용 X 숙제 때문에 추가작성한 코드
+router.post("/index", async (req, res) => {
+  try {
+    sequelize.define("user", {
+      indexes: [],
+    });
+  } catch (err) {
+    console.error(err);
+  }
+  res.redirect("/");
+});
+
 module.exports = router;
+
+//https://it-timehacker.tistory.com/458
