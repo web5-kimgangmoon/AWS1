@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { makeUsers, selectUsers, insertUsers } = require("./../lib");
+const { selectUsers, insertUsers } = require("./../lib");
 
 router.get("/login", (req, res) => {
   res.render("login");

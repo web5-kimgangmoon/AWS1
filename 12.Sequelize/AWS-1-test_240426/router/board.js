@@ -19,7 +19,6 @@ const { header } = require("./../data/initialData");
 //   header = await makeHeader();
 //   header.topList[0].class = "main";
 // })();
-let currentCate = "";
 
 router.get("/write", (req, res) => {
   res.render("write");
@@ -27,9 +26,6 @@ router.get("/write", (req, res) => {
 
 router.get("/", async (req, res) => {
   const { category, list } = await makeListNCategory();
-  for (let item of category) {
-    item.default = item.href == "/" + currentCate ? true : false;
-  }
   const body = {
     menu: { category },
     top: { category },
@@ -44,13 +40,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:cate", async (req, res) => {
-  currentCate = req.params.cate;
-  let boardName = "";
-  const { category, list } = await makeListNCategory();
-  for (let item of category) {
-    item.default = item.href == "/" + currentCate ? true : false;
-    if (item.default) boardName = item.name;
-  }
+  const { category, list, boardName } = await makeListNCategory(
+    req.params.cate
+  );
   const body = {
     menu: { category },
     top: { category },
@@ -65,13 +57,7 @@ router.get("/:cate", async (req, res) => {
 });
 
 router.get("/:cate/:id", async (req, res) => {
-  currentCate = req.params.cate;
-  let boardName = "";
-  const category = await makeCategory();
-  for (let item of category) {
-    item.default = item.href == "/" + currentCate ? true : false;
-    if (item.default) boardName = item.name;
-  }
+  const { category, boardName } = await makeCategory(req.params.cate);
   const item = await findBoard(req.params.id);
   const body = {
     menu: { category },
@@ -93,7 +79,7 @@ router.post("/:cate/:id/recomment/:like", async (req, res) => {
 });
 
 router.post("/write", async (req, res) => {
-  await insertBoard(req.body.title, req.body.content, "자유", req.user.nick);
+  await insertBoard(req.body.title, req.body.content, "자유", req.cookies.nick);
   res.redirect("/");
 });
 

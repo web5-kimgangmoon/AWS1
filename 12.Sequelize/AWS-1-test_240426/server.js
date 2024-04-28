@@ -2,14 +2,14 @@ const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
-const { header, category, list } = require("./data/initialData.js");
+const { category, list } = require("./data/initialData.js");
 const db = require("./models");
 
 db.sequelize
   .sync({ force: true })
   .then(() => {
     db.sequelize.transaction(async (transaction) => {
-      // find를 이용하려했지만, 배열을 자꾸 자동으로 String으로 컴파일러가 붙이는 바람에
+      // find를 이용하려했지만, 배열을 자꾸 자동으로 String으로 캐스팅하는 바람에
       // 쓰지 못하게 됐다.
       const user = ["무덤지기"];
       // for (let item of header.topList) {

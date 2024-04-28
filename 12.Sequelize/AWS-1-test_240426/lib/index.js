@@ -1,11 +1,10 @@
-const recomment = require("../models/recomment");
 const db = require("./../models");
 
-const makeListNCategory = async () => {
+const makeListNCategory = async (currentCate) => {
   try {
     const list = [],
-      category = [],
       recomment = [];
+    para = currentCate ? currentCate : "";
     const selectBoard = await db.Board.findAll({
       include: [
         {
@@ -18,7 +17,6 @@ const makeListNCategory = async () => {
       ],
       order: [["id", "desc"]],
     });
-    const selectCategory = await db.Category.findAll({});
     const selectRecomment = await db.Recomment.findAll({
       attributes: [
         "boardId",
@@ -26,11 +24,9 @@ const makeListNCategory = async () => {
       ],
       group: ["boardId"],
     });
-    console.log(selectRecomment);
     for (const item of selectRecomment) {
       recomment.push({ boardId: item.boardId, reco: item.get("reco") });
     }
-    console.log(recomment);
     for (let item of selectBoard) {
       list.push({
         id: item.id,
@@ -48,23 +44,25 @@ const makeListNCategory = async () => {
       const findRecomment = recomment.find(({ boardId }) => boardId == item.id);
       item.recomment = findRecomment ? findRecomment.reco : 0;
     }
-    for (const { href, name } of selectCategory) {
-      category.push({ href, name });
-    }
-    return { category, list };
+    const { category, boardName } = await makeCategory(para);
+    return { category, list, boardName };
   } catch (err) {
     console.error(err);
   }
 };
 
-const makeCategory = async () => {
+const makeCategory = async (currentCate) => {
   try {
-    const category = [];
+    let def, boardName;
+    const category = [],
+      para = currentCate ? currentCate : "";
     const selectCategory = await db.Category.findAll({});
     for (const { href, name } of selectCategory) {
-      category.push({ href, name });
+      def = href == "/" + para ? true : false;
+      if (def) boardName = name;
+      category.push({ href, name, default: def });
     }
-    return category;
+    return { category, boardName };
   } catch (err) {
     console.error(err);
   }
@@ -90,7 +88,6 @@ const findBoard = async (id) => {
       ],
       where: { boardId: id },
     });
-
     const list = {
       id: selectBoard.id,
       user_nick: selectBoard.User.nick,
@@ -109,14 +106,14 @@ const findBoard = async (id) => {
   }
 };
 
-const makeUsers = async () => {
-  try {
-    const selectAll = await db.User.findAll({});
-    return { userId: selectAll.userId, pw: selectAll.pw, nick: selectAll.nick };
-  } catch (err) {
-    console.error(err);
-  }
-};
+// const makeUsers = async () => {
+//   try {
+//     const selectAll = await db.User.findAll({});
+//     return { userId: selectAll.userId, pw: selectAll.pw, nick: selectAll.nick };
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 
 const insertUsers = async (userId, pw, nick) => {
   try {
@@ -198,8 +195,6 @@ module.exports = {
   findBoard,
   insertRecomment,
   insertBoard,
-  makeUsers,
   selectUsers,
   insertUsers,
-  makeHeader,
 };
