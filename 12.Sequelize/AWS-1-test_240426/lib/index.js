@@ -1,10 +1,9 @@
 const db = require("./../models");
 
-const makeListNCategory = async (currentCate) => {
+const makeListNCategory = async (currentCate = "") => {
   try {
     const list = [],
       recomment = [];
-    para = currentCate ? currentCate : "";
     const selectBoard = await db.Board.findAll({
       include: [
         {
@@ -44,21 +43,20 @@ const makeListNCategory = async (currentCate) => {
       const findRecomment = recomment.find(({ boardId }) => boardId == item.id);
       item.recomment = findRecomment ? findRecomment.reco : 0;
     }
-    const { category, boardName } = await makeCategory(para);
+    const { category, boardName } = await makeCategory(currentCate);
     return { category, list, boardName };
   } catch (err) {
     console.error(err);
   }
 };
 
-const makeCategory = async (currentCate) => {
+const makeCategory = async (currentCate = "") => {
   try {
     let def, boardName;
-    const category = [],
-      para = currentCate ? currentCate : "";
+    const category = [];
     const selectCategory = await db.Category.findAll({});
     for (const { href, name } of selectCategory) {
-      def = href == "/" + para ? true : false;
+      def = href == "/" + currentCate ? true : false;
       if (def) boardName = name;
       category.push({ href, name, default: def });
     }
