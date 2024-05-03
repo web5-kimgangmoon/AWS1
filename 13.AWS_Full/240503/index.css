@@ -1,0 +1,51 @@
+/* #root { */
+/* display: flex; */
+/* margin: 0; */
+/* flex-direction: column; */
+/* height: 100%; */
+/* } */
+
+body {
+  margin: 0;
+}
+.header {
+  height: 3rem;
+  /* background-color: antiquewhite; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.header .logo {
+  color: black;
+}
+
+.header .global button {
+  background-color: white;
+  border: none;
+}
+.header .global button svg {
+  opacity: 0.6;
+}
+.body {
+  /* flex: 1; */
+  background-color: aqua;
+  height: calc(100% - 10rem);
+}
+.footer {
+  /* background-color: blueviolet; */
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.footer a {
+  color: black;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.footer a:last-child {
+  font-weight: bolder;
+}
