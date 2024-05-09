@@ -143,3 +143,6 @@ a {
 .footer a:last-child {
   font-weight: bolder;
 }
+.err {
+  color: red;
+}

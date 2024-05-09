@@ -49,10 +49,10 @@ registForm.onsubmit = (e) => {
   //   console.log(registForm.pw.value);
   //   console.log(registForm["pw-check"].value);
   //   console.log(registForm.nick.value);
-  if (!(isPw && isEmail && isCheck && isNick)) {
-    alert("내용 확인 후 다시 시도해주세요.");
-    return;
-  }
+  // if (!(isPw && isEmail && isCheck && isNick)) {
+  //   alert("내용 확인 후 다시 시도해주세요.");
+  //   return;
+  // }
   const xhr = new XMLHttpRequest();
   xhr.open("post", "http://localhost:8000/user/regist");
   xhr.setRequestHeader("content-type", "application/json");
