@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>전체 게시판 - 리그오브레전드</title>
     <link rel="stylesheet" href="./index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
   </head>
   <body>
@@ -22,7 +23,7 @@
           </div>
           <div class="body">
             <div class="left-bar">
-              <div>
+              <div id="user-info">
                 <a href="./">
                   <button>로그인</button>
                 </a>
@@ -31,23 +32,40 @@
               <ul class="link-list" id="link-list"></ul>
             </div>
             <div class="list-box">
-              <form action="" class="write">
+              <form id="boardWrite" action="http://localhost:8000/board/write" class="write" method="post">
                 <h3>게시글 작성</h1>
-                  <select name="category" id="category"></select>
+                  <select name="categoryId" id="categoryId"></select>
                   <input type="text" name="title" placeholder="제목" />
                   <input type="hidden" id="content" name="content" />
                   <div id="editor"></div>
+                  <div class="icons"></div>
+                  <div class="btns">
+                    <button id="cancle" class="cancle">취소</button>
+                    <button id="submit" class="submit">작성완료</button>
+                  </div>
               </form>
-              <div class="icons"></div>
-              <div class="btns">
-                <button id="cancle" class="cancle">취소</button>
-                <button id="submit" class="submit">작성완료</button>
+            </div>
+            <div class="right-bar">
+              <div class="rank-bar">
+                <div class="description">실시간 톡 <span>최근 24시간 기준</span></div>
+                <div class="sort-list">
+                  <button id="pushInform" class="current">푸쉬 알림글</button>
+                  <button id="looksSort">최다 조회</button>
+                  <button id="commentsSort">최다 댓글</button>
+                </div>
+                <div class="rank-list">
+                  <ol id="rank-list">
+                    <!-- <li><a href="">유머 · 여간첩, 자수하다</a></li>
+                    <li><a href="">자유 · 이렐 사실상 고인됐네 ㅋㅋㅋㅋㅋㅋㅋ</a></li> -->
+                  </ol>
+                </div>
               </div>
+              <div class="advertise-img">slide position</div>
             </div>
           </div>
-          <div class="right-bar">대충 오른쪽 바라는 것</div>
         </div>
       </div>
+      <footer>ㅇㅇasdasdasdas</footer>
     </div>
     <script src="./index.js"></script>
   </body>

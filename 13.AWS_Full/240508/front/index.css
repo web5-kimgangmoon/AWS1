@@ -427,13 +427,81 @@ a {
   border: none;
   border-radius: 0.5rem;
 }
+.board .body .right-bar {
+  background-color: #ebeef1;
+}
+.board .body .right-bar .rank-bar {
+  margin-bottom: 0.8rem;
+}
+.board .body .right-bar .rank-bar .description,
+.board .body .right-bar .rank-bar .sort-list,
+.board .body .right-bar .rank-bar .rank-list,
+.board .body .right-bar .advertise-img {
+  padding: 1rem;
+  background-color: white;
+  line-height: 100%;
+}
+.board .body .right-bar .rank-bar .description {
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-bottom: 1px solid gainsboro;
+}
+.board .body .right-bar .rank-bar .rank-list {
+  padding-top: 0;
+  padding-bottom: 0.3rem;
+}
 
+.board .body .right-bar .rank-bar .description span {
+  float: right;
+  font-weight: 100;
+  font-size: 0.7rem;
+  color: gray;
+}
+.board .body .right-bar .rank-bar .sort-list button {
+  outline: 0;
+  color: #46cfa7;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  background-color: white;
+  border: 1px solid #46cfa7;
+  border-radius: 12px;
+}
+.board .body .right-bar .rank-bar .sort-list button.current {
+  color: white;
+  background-color: #46cfa7;
+}
+.board .body .right-bar .rank-bar .rank-list ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.board .body .right-bar .rank-bar .rank-list ol li {
+  margin-bottom: 0.3rem;
+  padding: 0.1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.board .body .right-bar .rank-bar .rank-list ol li a {
+  color: black;
+}
+.board .body .right-bar .rank-bar .rank-list ol li a:visited {
+  color: gray;
+}
+.board footer {
+  margin-top: 3rem;
+  background-color: black;
+  height: 300px;
+}
 @media only screen and (max-width: 1300px) {
   .container {
     max-width: 1050px;
   }
-
-  .right-bar {
+  .left-bar {
     display: none;
+  }
+  .right-bar {
+    /* display: none; */
   }
 }

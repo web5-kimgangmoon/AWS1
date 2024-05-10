@@ -36,7 +36,7 @@ const categoryList = [
   },
 ];
 const cateElem = document.getElementById("category-list");
-const cateListElem = document.getElementById("category");
+const cateListElem = document.getElementById("categoryId");
 cateListElem.innerHTML += `<option value="0">채널 선택</option>`;
 const tempArr = [];
 
@@ -102,21 +102,142 @@ linkList.forEach((link) => {
 
 const listElem = document.getElementById("list");
 
-for (let i = 0; i < 40; i++)
-  listElem.innerHTML += `<li>
-<a href="./">
-  <div class="item">
-    <div class="like">
-      <p>▲</p>
-      <p>123</p>
+// for (let i = 0; i < 40; i++)
+//   listElem.innerHTML += `<li>
+// <a href="./">
+//   <div class="item">
+//     <div class="like">
+//       <p>▲</p>
+//       <p>123</p>
+//     </div>
+//     <div class="text">
+//       <h4>단톡방 자아분열 <span>[32]</span></h4>
+//       <p>유머 | 2시간 전 | 더레이더</p>
+//     </div>
+//     <div class="img">
+//       <img src="../imgs/bg_lol.jpg" alt="" />
+//     </div>
+//   </div>
+// </a>
+// </li>`;
+const userInfoElem = document.getElementById("user-info");
+(async () => {
+  const user = (
+    await axios.post(
+      "http://localhost:8000/user/info",
+      { id: 1 }, // body
+      {
+        headers: { "content-type": "application/json" },
+        withCredentials: true,
+      } // option
+    )
+  ).data;
+
+  console.log(user);
+
+  if (user.user) {
+    userInfoElem.innerHTML = `<div class="user-level">
+    <div class="level-img">
+      <img src="../imgs/icon-community-lfg.png" alt="" />
     </div>
-    <div class="text">
-      <h4>단톡방 자아분열 <span>[32]</span></h4>
-      <p>유머 | 2시간 전 | 더레이더</p>
+    <div class="name-level">
+      <div class="user-name">${user.user}</div>
+      <div class="user-now-level">레벨 1</div>
+      <div class="user-level-bar"></div>
+      <div class="next-level">다음 레벨까지 11 남음</div>
     </div>
-    <div class="img">
-      <img src="../imgs/bg_lol.jpg" alt="" />
+  </div>  
+  <div class="user-menu">
+    <div class="user-write-comment">
+      <div class="user-writed">
+        <a href="./"><button>내가 쓴 글</button></a>
+      </div>
+      <div class="user-comment">
+        <a href="./"><button>내가 쓴 댓글</button></a>
+      </div>
     </div>
-  </div>
-</a>
-</li>`;
+    <div class="user-ward-write">
+      <div class="user-ward">
+        <a href="./"><button>내 와드</button></a>
+      </div>
+      <div class="user-write">
+        <a href="/write"><button>글 쓰기</button></a>
+      </div>
+    </div>
+    <div class="user-link">
+      <a href="./">
+        <button>게임 계정 연결</button>
+      </a>
+    </div>
+  </div>`;
+  }
+})();
+const ranklist = document.getElementById("rank-list");
+const rankInfo = [
+  {
+    cate: "MSI",
+    title: "[이벤트] MSI 경기 스코어 예측 이벤트 (T1 vs G2)",
+    href: "./",
+  },
+  {
+    cate: "MSI",
+    title: "[이벤트] MSI 경기 스코어 예측 이벤트 (T1 vs G2)",
+    href: "./",
+  },
+  { cate: "유머", title: "마을에 여자가 1명이어도 행복한 이유", href: "./" },
+  { cate: "유머", title: "마왕과 친구?가 된 용사", href: "./" },
+  {
+    cate: "유머",
+    title: "연인사이 이 정도 연락 당연하다 vs 빡세다",
+    href: "./",
+  },
+  { cate: "유머", title: "일 뽕 특 징", href: "./" },
+  { cate: "유머", title: "머리 아니.. 그냥 좆된 디시인.jpg", href: "./" },
+  {
+    cate: "유머",
+    title: "[공지] MSI 경기 스코어 예측 이벤트 당첨자 발표",
+    href: "./",
+  },
+  { cate: "유머", title: "제일 좋아하는 빵 1개만 고르기", href: "./" },
+  {
+    cate: "유머",
+    title: "싱글벙글 한국식 교육 시스템이 안없어지는 이유",
+    href: "./",
+  },
+  {
+    cate: "유머",
+    title: "허언증이라고 무시당했지만 전설이 된 여초사이트 글",
+    href: "./",
+  },
+  { cate: "유머", title: "너무 낮은 몸값에 충격", href: "./" },
+  {
+    cate: "유머",
+    title: "페이커 피셜 : 내 스킨 고급스럽고 팬분들이 좋아할것같다",
+    href: "./",
+  },
+  { cate: "유머", title: "???:야짤 좀 줘", href: "./" },
+];
+for (let item of rankInfo) {
+  ranklist.innerHTML += `<li><a href="${item.href}">${item.cate} · ${item.title}</a><li>`;
+}
+
+const boardWriteElem = document.forms["boardWrite"];
+
+boardWriteElem.onsubmit = async (e) => {
+  e.preventDefault();
+  boardWriteElem.title.value;
+  console.log(
+    document
+      .getElementsByClassName("ck-editor__editable")[0]
+      .getElementsByTagName("p")[0].innerHTML
+  );
+  // const user = await axios.post(
+  //   "http://localhost:8000/user/info",
+  //   { id: 1 }, //body
+  //   {
+  //     headers: { "content-type": "application/json" },
+  //     withCredentials: true,
+  //   } //option
+  // );
+  // axios 따라쳐보기 연습
+};

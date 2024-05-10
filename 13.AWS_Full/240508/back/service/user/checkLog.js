@@ -3,8 +3,9 @@ import { User } from "../../models/index.js";
 export default async (req, res, next) => {
   try {
     if (req.signedCookies.user) {
+      console.log(req.signedCookies.user);
       req.user = await User.findOne({
-        where: { id: req.signedCookies.user },
+        where: { id: req.signedCookies["user"] },
       });
     }
   } catch (err) {

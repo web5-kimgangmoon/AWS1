@@ -52,6 +52,7 @@ form.onsubmit = async (e) => {
       }),
       credentials: "include",
     });
+    location.href = "http://localhost";
     console.log(response.status);
   } catch (err) {
     console.error(err);

@@ -42,6 +42,29 @@ registForm.pw.oninput = (e) => {
     pwResultElem.innerHTML = "";
   }
 };
+registForm["pw-check"].oninput = (e) => {
+  isCheck = false;
+  if (registForm.pw.value != registForm["pw-check"].value) {
+    checkResultElem.innerHTML = "비밀번호가 다릅니다.";
+  } else {
+    isCheck = true;
+    checkResultElem.innerHTML = "";
+  }
+};
+registForm.nick.oninput = (e) => {
+  const nickReg = /(?=.*[!@#$%^&*()\\+=-])/i;
+  isNick = false;
+  console.log(nickReg.test(e.target.value));
+  if (e.target.value.length < 5 || e.target.value.length > 10) {
+    nickResultElem.innerHTML = "닉네임은 5글자 이상, 10글자 이하여야 합니다.";
+  } else if (nickReg.test(e.target.value)) {
+    nickResultElem.innerHTML =
+      "닉네임은 특수문자와 공백문자가 입력되어선 안됩니다.";
+  } else {
+    isNick = true;
+    nickResultElem.innerHTML = "";
+  }
+};
 
 registForm.onsubmit = (e) => {
   e.preventDefault(); // 엘리먼트의 기본 기능을 멈춘다.
@@ -49,10 +72,10 @@ registForm.onsubmit = (e) => {
   //   console.log(registForm.pw.value);
   //   console.log(registForm["pw-check"].value);
   //   console.log(registForm.nick.value);
-  // if (!(isPw && isEmail && isCheck && isNick)) {
-  //   alert("내용 확인 후 다시 시도해주세요.");
-  //   return;
-  // }
+  if (!(isPw && isEmail && isCheck && isNick)) {
+    alert("내용 확인 후 다시 시도해주세요.");
+    return;
+  }
   const xhr = new XMLHttpRequest();
   xhr.open("post", "http://localhost:8000/user/regist");
   xhr.setRequestHeader("content-type", "application/json");
@@ -72,8 +95,7 @@ registForm.onsubmit = (e) => {
   xhr.onload = () => {
     if (xhr.status == 200) {
       alert("성공!");
-      location.href =
-        "http://127.0.0.1:5500/13.AWS_Full/240508/front/login/index.html";
+      location.href = "http://localhost";
     } else if (xhr.status == 400) {
       alert("메시지 확인");
     } else if (xhr.status == 409) {

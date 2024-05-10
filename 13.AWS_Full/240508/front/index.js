@@ -123,10 +123,11 @@ const userInfoElem = document.getElementById("user-info");
       "http://localhost:8000/user/info",
       { id: 1 }, // body
       {
+        headers: { "content-type": "application/json" },
         withCredentials: true,
       } // option
     )
-  ).date;
+  ).data;
 
   console.log(user);
 
@@ -156,7 +157,7 @@ const userInfoElem = document.getElementById("user-info");
         <a href="./"><button>내 와드</button></a>
       </div>
       <div class="user-write">
-        <a href="./"><button>글 쓰기</button></a>
+        <a href="/write"><button>글 쓰기</button></a>
       </div>
     </div>
     <div class="user-link">
@@ -167,3 +168,52 @@ const userInfoElem = document.getElementById("user-info");
   </div>`;
   }
 })();
+
+const ranklist = document.getElementById("rank-list");
+const rankInfo = [
+  {
+    cate: "MSI",
+    title: "[이벤트] MSI 경기 스코어 예측 이벤트 (T1 vs G2)",
+    href: "./",
+  },
+  {
+    cate: "MSI",
+    title: "[이벤트] MSI 경기 스코어 예측 이벤트 (T1 vs G2)",
+    href: "./",
+  },
+  { cate: "유머", title: "마을에 여자가 1명이어도 행복한 이유", href: "./" },
+  { cate: "유머", title: "마왕과 친구?가 된 용사", href: "./" },
+  {
+    cate: "유머",
+    title: "연인사이 이 정도 연락 당연하다 vs 빡세다",
+    href: "./",
+  },
+  { cate: "유머", title: "일 뽕 특 징", href: "./" },
+  { cate: "유머", title: "머리 아니.. 그냥 좆된 디시인.jpg", href: "./" },
+  {
+    cate: "유머",
+    title: "[공지] MSI 경기 스코어 예측 이벤트 당첨자 발표",
+    href: "./",
+  },
+  { cate: "유머", title: "제일 좋아하는 빵 1개만 고르기", href: "./" },
+  {
+    cate: "유머",
+    title: "싱글벙글 한국식 교육 시스템이 안없어지는 이유",
+    href: "./",
+  },
+  {
+    cate: "유머",
+    title: "허언증이라고 무시당했지만 전설이 된 여초사이트 글",
+    href: "./",
+  },
+  { cate: "유머", title: "너무 낮은 몸값에 충격", href: "./" },
+  {
+    cate: "유머",
+    title: "페이커 피셜 : 내 스킨 고급스럽고 팬분들이 좋아할것같다",
+    href: "./",
+  },
+  { cate: "유머", title: "???:야짤 좀 줘", href: "./" },
+];
+for (let item of rankInfo) {
+  ranklist.innerHTML += `<li><a href="${item.href}">${item.cate} · ${item.title}</a><li>`;
+}
