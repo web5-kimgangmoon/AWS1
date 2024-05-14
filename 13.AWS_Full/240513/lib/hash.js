@@ -49,7 +49,7 @@ console.log(hashedString4);
 
 const salt2 = (await crypto.randomBytes(64)).toString("base64");
 
-const pbkdf2 = crypto.pbkdf2sync(
+const pbkdf2 = crypto.pbkdf2Sync(
   "비밀번호를 입력", // 암호할 데이터
   salt, // 소금
   1000, // 반복 횟수
@@ -60,7 +60,7 @@ const pbkdf2 = crypto.pbkdf2sync(
   //     key // 콜백 함수, pbkdf2 메서드가 언제 끝날지 모른다.
   //   ) => console.log(key.toString("hex"))
 );
-console.log(key.toString("hex")); //16진수로 바꾸기
+console.log(pbkdf2.toString("hex")); //16진수로 바꾸기
 // 비동기가 아니라 동기로 실행
 // 비동기와 동기 경우에 맞게 나눠서 쓸 수 있다.
 // 예 :) 저장만 할 경우, 굳이 저장이 끝날때를 기다릴 필요는 없다. 물론 예외는 있겠지만,
