@@ -1,0 +1,14 @@
+body {
+  box-sizing: border-box;
+}
+
+.btn {
+  width: max-content;
+  height: max-content;
+  padding: 0.5rem 0.8rem;
+  background-color: aquamarine;
+  color: black;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+}

@@ -1,0 +1,47 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <ul id="messages" action=""></ul>
+    <div id="count"></div>
+    <form action="" id="chat">
+      <input type="text" name="name" />
+      <input type="text" name="chat" />
+      <button class="btn btn-primary">보내기</button>
+    </form>
+    <script>
+      //   (async () => {
+      //     const ip = await fetch("http://localhost:8080/ip");
+      //     console.log(ip);
+      //   })()
+
+      console.log(io);
+      const socket = io("ws://localhost:8080");
+      const msgElem = document.getElementById("messages");
+      const count = document.getElementById("count");
+      document.forms.chat.onsubmit = (e) => {
+        e.preventDefault();
+        if (e.target.chat.value) {
+          socket.emit("chat", {
+            name: e.target.name.value || "no name",
+            chat: e.target.chat.value
+          });
+          e.target.chat.value = "";
+        }
+      }
+      //   socket.on("count", (data) => {
+      //     count.innerText = `현재 인원은 총 ${data} 명입니다.`;
+      //   })
+      socket.on("chat", (data) => {
+        console.log(data);
+        msgElem.innerHTML += `<li>${data.name} : ${data.chat}</li>`
+        window.scrollTo(0, document.body.scrollHeight);
+      })
+    </script>
+  </body>
+</html>
