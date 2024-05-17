@@ -11,3 +11,6 @@
 
 - socket.io 라이브러리를 사용해서 구현해보자.(실용성)
 - websocket, ws 기능이 제한적이다.(학습용)
+
+스웨거
+https://overcome-the-limits.tistory.com/101
