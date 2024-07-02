@@ -20,24 +20,24 @@ root.render(
   </BrowserRouter>
 );
 
-// const router = createBrowserRouter([
-//   { path: "/", element: <div>하이?</div> },
-//   {
-//     path: "/test",
-//     element: (
-//       <div>
-//         testing
-//         {/* <Outlet /> */}
-//       </div>
-//     ),
-//     children: [
-//       {
-//         path: "/test/tt",
-//         element: <div>TestTest</div>,
-//       },
-//     ],
-//   },
-// ]);
+const router = createBrowserRouter([
+  { path: "/", element: <div>하이?</div> },
+  {
+    path: "/test",
+    element: (
+      <div>
+        testing
+        {/* <Outlet /> */}
+      </div>
+    ),
+    children: [
+      {
+        path: "/test/tt",
+        element: <div>TestTest</div>,
+      },
+    ],
+  },
+]);
 
 // root.render(<RouterProvider router={router} />);
 // If you want to start measuring performance in your app, pass a function

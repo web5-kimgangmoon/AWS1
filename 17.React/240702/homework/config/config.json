@@ -1,0 +1,16 @@
+{
+  "develop": {
+    "username": "root",
+    "password": "P@sswOrd-8",
+    "database": "todoList",
+    "host": "127.0.0.1",
+    "port": 3000
+  },
+  "product": {
+    "username": "root",
+    "password": "P@sswOrd-8",
+    "database": "todoList",
+    "host": "127.0.0.1",
+    "port": 3000
+  }
+}
