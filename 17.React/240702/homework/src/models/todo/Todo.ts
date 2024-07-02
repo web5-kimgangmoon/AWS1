@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional, BelongsTo, HasOne } from "sequelize";
-import db from "../index";
+import sequelize from "../index";
 
 interface ITodoModel {
   id: number;
@@ -41,7 +41,7 @@ Todo.init(
     },
   },
   {
-    sequelize: db.sequelize,
+    sequelize: sequelize,
     modelName: "Todo",
     tableName: "todo",
     timestamps: true,

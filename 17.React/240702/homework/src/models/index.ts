@@ -1,5 +1,5 @@
 import { Sequelize, Dialect } from "sequelize";
-import SQLconfig from "../config/config.json" assert { type: "json" };
+import SQLconfig from "../config/config.json";
 
 export { Sequelize };
 
@@ -8,13 +8,12 @@ interface IConfig {
   password: string;
   database: string;
   host: string;
-  port: number;
   dialect: Dialect;
 }
-const env = process.env.NODE_ENV ? "production" : "develop";
+const env = process.env.NODE_ENV ? SQLconfig["product"] : SQLconfig["develop"];
 let dialect: Dialect = "mysql";
 
-const config: IConfig = { ...SQLconfig[env], dialect };
+const config: IConfig = { ...env, dialect };
 
 const sequelize = new Sequelize(
   config.database,
@@ -25,6 +24,4 @@ const sequelize = new Sequelize(
 
 export { sequelize };
 
-const db = { sequelize, Sequelize };
-
-export default db;
+export default sequelize;
