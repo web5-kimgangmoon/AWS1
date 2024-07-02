@@ -14,8 +14,8 @@ const checkId = async (id: string, res: Response): Promise<boolean> => {
           attributes: [[sequelize.fn("MAX", sequelize.col("id")), "max"]],
           where: { deletedAt: null },
         })
-      )?.get("max") || 0;
-    if (num > Number(lastId) || num < 0) {
+      )?.get("max") || 1;
+    if (num > Number(lastId) || num < 1) {
       res.send("id is over or under on limit!");
       return true;
     }

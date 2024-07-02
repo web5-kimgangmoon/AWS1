@@ -29,7 +29,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    origin: [/http:\/\/127.0.0.1:*/, /http:\/\/localhost:*/],
     credentials: true,
   })
 );
@@ -45,9 +45,9 @@ app.use(cookieParser(process.env.COOKIESECRET || "assasas"));
 // app.set("views", path.join(__dirname, "/public"));
 app.use("/api", router);
 
-app.get("/", (req, res, next) => {
-  res.send("테스트중");
-});
+// app.get("/", (req, res, next) => {
+//   res.send("테스트중");
+// });
 
 app.listen(app.get("port"), () => {
   console.log("server open ", app.get("port"));
