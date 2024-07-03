@@ -1,13 +1,14 @@
 import { Suspense } from "react";
-import Todo from "./container/todo";
+import Todo from "./component/todo";
 
 const App = (): JSX.Element => {
   return (
-    <div>
+    <>
+      <h1>Testing</h1>
       <Suspense fallback={<h1>now Loading!!!</h1>}>
         <Todo />
       </Suspense>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 {
   "develop": {
     "username": "tester",
-    "password": "1234",
+    "password": "P@sswOrd-8",
     "database": "todo",
     "host": "127.0.0.1",
     "dialect": "mysql"

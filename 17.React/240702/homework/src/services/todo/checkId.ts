@@ -5,7 +5,8 @@ const checkId = async (id: string, res: Response): Promise<boolean> => {
   try {
     const num = Number(id);
     if (isNaN(num)) {
-      res.send("wrong type id");
+      console.log("wrong type id");
+      res.send([]);
       return true;
     }
     const lastId =
@@ -16,13 +17,14 @@ const checkId = async (id: string, res: Response): Promise<boolean> => {
         })
       )?.get("max") || 1;
     if (num > Number(lastId) || num < 1) {
-      res.send("id is over or under on limit!");
+      console.log("id is over or under on limit!");
+      res.send([]);
       return true;
     }
     return false;
   } catch (err) {
     console.error(err);
-    res.send(err);
+    res.send([]);
     return true;
   }
 };
