@@ -1,4 +1,5 @@
-import { atom, selector, DefaultValue } from "recoil";
+import axios from "axios";
+import { atom, selector, DefaultValue, useSetRecoilState } from "recoil";
 
 export interface ITodo {
   id: number;
@@ -18,14 +19,14 @@ const todoFilterState = atom<string>({
   key: "todoFilterState",
   default: "all",
 });
-export const todoList = atom<ITodo[]>({
+export const todoListState = atom<ITodo[]>({
   key: "todoList",
   default: [],
 });
-export const todoListState = selector<ITodo[]>({
+export const todoListReducer = selector<ITodo[]>({
   key: "todoListState",
   get: ({ get }) => {
-    const list: ITodo[] = get(todoList);
+    const list: ITodo[] = get(todoListState);
     const filter: string = get(todoFilter);
     switch (filter) {
       case "complete":
@@ -37,11 +38,23 @@ export const todoListState = selector<ITodo[]>({
         return list;
     }
   },
-  //   set: ({ set }, todo) => {
-  //     set(todoList, (list) => {
-  //       return todo instanceof DefaultValue ? [...list] : [...list, ...todo];
-  //     });
-  //   },
+});
+export const todoSet = selector<string>({
+  key: "todoset",
+  get: ({}) => "this is not getter",
+  set: async ({ set }, content) => {
+    try {
+      await axios.post("http://localhost:3000/api/todo/add", {
+        content: content,
+      });
+      const data: ITodo[] = await axios.post(
+        "http://localhost:3000/api/todo/getList"
+      );
+      set(todoListState, [...data]);
+    } catch (err) {
+      console.error(err);
+    }
+  },
 });
 
 // export const todoListFilter = selector<ITodo[]>({
@@ -94,3 +107,17 @@ export const todoFilter = selector<string>({
 //   b: "st",
 //   c: { a: 1, b: [1, 2, 3], c: { a: { b: [] } } },
 // };
+
+export const getServerList = selector<ITodo[]>({
+  key: "getServerList",
+  get: async ({ get }) => {
+    try {
+      const { data } = await axios.get("http://localhost:3080/api/todo/1");
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  },
+});
