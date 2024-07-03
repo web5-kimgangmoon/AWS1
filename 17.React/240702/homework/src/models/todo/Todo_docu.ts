@@ -27,13 +27,13 @@ interface ITodoModel {
 // export interface TodoOutput extends Required<ITodoModel> {}
 
 class Todo extends Model<InferAttributes<Todo>, InferCreationAttributes<Todo>> {
-  declare id: CreationOptional<number>;
-  declare content: string;
-  declare isComplete: CreationOptional<boolean>;
+  id!: CreationOptional<number>;
+  content!: string;
+  isComplete!: CreationOptional<boolean>;
 
-  declare readonly createdAt: CreationOptional<Date>;
-  declare readonly updatedAt: CreationOptional<Date>;
-  declare readonly deletedAt: CreationOptional<Date | null>;
+  readonly createdAt!: CreationOptional<Date>;
+  readonly updatedAt!: CreationOptional<Date>;
+  readonly deletedAt!: CreationOptional<Date | null>;
   //   declare projects?: NonAttribute<Project[]>;
   //   declare static associations: {
   //     projects: Association<User, Project>;

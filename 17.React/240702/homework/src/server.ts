@@ -26,20 +26,21 @@ import path from "path";
 
 dotenv.config();
 const app: Express = express();
-
 app.use(
   cors({
     origin: [/http:\/\/127.0.0.1:*/, /http:\/\/localhost:*/],
     credentials: true,
   })
 );
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.set("port", process.env.PORT ? process.env.PORT : 3090);
 app.use((req, res, next) => {
   if (process.env.NODE_ENV == "production") morgan("combined")(req, res, next);
   else morgan("dev")(req, res, next);
 });
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
 app.use(cookieParser(process.env.COOKIESECRET || "assasas"));
 // app.set("view engine", "ejs");
 // app.set("views", path.join(__dirname, "/public"));

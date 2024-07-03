@@ -1,14 +1,16 @@
 {
   "develop": {
-    "username": "root",
-    "password": "P@sswOrd-8",
-    "database": "todoList",
-    "host": "127.0.0.1"
+    "username": "tester",
+    "password": "1234",
+    "database": "todo",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "product": {
     "username": "root",
     "password": "P@sswOrd-8",
     "database": "todoList",
-    "host": "127.0.0.1"
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
