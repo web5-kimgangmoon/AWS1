@@ -11,13 +11,16 @@ import path from "path";
   try {
     await db.sequelize.sync({ force: true });
     const transaction = db.sequelize.transaction(async () => {
-      // try {
-      //   await db.Todo.update({ content: "sas" }, { where: { id: 2 } });
-      //   // await db.Todo.create({content:"하"});
-      //   // await db.Todo.create({content:"공물을 모아 내 총애를 얻어라"});
-      // } catch (err) {
-      //   console.error(err);
-      // }
+      try {
+        // await db.Todo.create({ content: "하" });
+        // await db.Todo.create({ content: "공물을 모아 내 총애를 얻어라" });
+        // await db.Todo.update(
+        //   { content: "sas", isComplete: true },
+        //   { where: { id: 2 } }
+        // );
+      } catch (err) {
+        console.error(err);
+      }
     });
   } catch (err) {
     console.error(err);
@@ -35,7 +38,7 @@ app.use(
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.set("port", process.env.PORT ? process.env.PORT : 3090);
+app.set("port", process.env.PORT ? process.env.PORT : 3080);
 app.use((req, res, next) => {
   if (process.env.NODE_ENV == "production") morgan("combined")(req, res, next);
   else morgan("dev")(req, res, next);

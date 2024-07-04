@@ -1,5 +1,5 @@
 {
-  "name": "recoil-test",
+  "name": "query-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/axios": "^0.14.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.101",
     "@types/react": "^18.3.3",
@@ -15,9 +14,7 @@
     "axios": "^1.7.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
-    "recoil": "^0.7.7",
     "sass": "^1.77.6",
     "scss": "^0.2.4",
     "tailwind": "^4.0.0",
@@ -47,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0"
   }
 }

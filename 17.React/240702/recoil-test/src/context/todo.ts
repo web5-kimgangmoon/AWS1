@@ -45,23 +45,6 @@ export const todoListReducer = selector<ITodo[]>({
 });
 
 // selector : reducer + action?
-// export const todoCount = selector<number>({
-//   key: "todoCount",
-//   get: ({ get }) => {
-//     const list = get(todoListState);
-//     const filter = get(todoFilter);
-
-//     switch (filter) {
-//       case "complete":
-//         return list.filter((item) => item.isComplete).length;
-//       case "progress":
-//         return list.filter((item) => !item.isComplete).length;
-//       case "all":
-//       default:
-//         return list.length;
-//     }
-//   },
-// });
 
 export const todoFilter = selector<string>({
   key: "todoFilter",
@@ -103,45 +86,3 @@ export const getServerList = selector<ITodo[]>({
     }
   },
 });
-
-// export const todoSet = selector<string>({
-//   key: "todoset",
-//   get: ({}) => "this is not getter",
-//   set: ({ set }, content) =>
-//     //   {
-//     //   set(todoListState, (prev) => [
-//     //     ...prev,
-//     //     {
-//     //       id: 32,
-//     //       content: content instanceof DefaultValue ? "dsad" : content,
-//     //       isComplete: false,
-//     //     },
-//     //   ]);
-//     // },
-//     axios
-//       .post("http://localhost:3000/api/todo/add", {
-//         content: content,
-//       })
-//       .then(() => axios.post("http://localhost:3000/api/todo/getList"))
-//       .then(({ data }) => {
-//         set(todoListState, [...data]);
-//       })
-//       .catch((err) => console.error(err)),
-// });
-
-// export const todoListFilter = selector<ITodo[]>({
-//   key: "todoListFilter",
-//   get: ({ get }) => {
-//     const list = get(todoListState);
-//     const filter = get(todoFilter);
-//     switch (filter) {
-//       case "complete":
-//         return list.filter((item) => item.isComplete);
-//       case "progress":
-//         return list.filter((item) => item.isComplete);
-//       case "all":
-//       case "default":
-//         return list;
-//     }
-//   },
-// });

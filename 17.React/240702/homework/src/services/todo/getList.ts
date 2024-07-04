@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Todo } from "../../models/sequelizeDB";
-import { Op } from "sequelize";
 
 const getList = async (req: Request, res: Response) => {
   try {
@@ -20,21 +19,9 @@ const getList = async (req: Request, res: Response) => {
         limit: 10,
       });
     }
-    let completeRows = await Todo.findAll({
-      where: { deletedAt: null, isComplete: true },
-    });
-    let allRows = await Todo.findAll({ where: { deletedAt: null } });
-
     // targetRow?.setDataValue("isComplete", !targetRow.isComplete);
     // targetRow?.setAttributes("isComplete", !targetRow.isComplete);
-    res.send({
-      targetList,
-      count: [
-        allRows.length,
-        completeRows.length,
-        allRows.length - completeRows.length,
-      ],
-    });
+    res.send(targetList);
   } catch (err) {
     console.error(err);
   }
