@@ -1,7 +1,6 @@
-import { useState, ChangeEvent } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useState, useEffect, ChangeEvent, useMemo, useCallback } from "react";
+import { useRecoilState } from "recoil";
 import {
-  todoListReducer,
   todoFilter,
   todoListState,
   todoCountState,
@@ -9,11 +8,55 @@ import {
 } from "../context/todo";
 import axios from "axios";
 import TodoComp from "../component/todo";
-import { useNavigate, Routes, Route } from "react-router-dom";
-import { colorEnum } from "../button/Button";
-import { useMutation } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { colorENUM } from "../button/Button";
+import { UseMutateFunction, useQuery } from "@tanstack/react-query";
 
-const Todo = (): JSX.Element => {
+interface IProps {
+  getListMutate: {
+    mutate: UseMutateFunction<ITodo[] | undefined, Error, [number, number]>;
+    data: ITodo[] | undefined;
+    isPending: boolean;
+  };
+  getCountArrMutate: {
+    mutate: UseMutateFunction<[number, number, number] | undefined, Error>;
+    data: [number, number, number] | undefined;
+    isPending: boolean;
+  };
+}
+
+const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
+  const navigate = useNavigate();
+  const [addContent, setAddContent] = useState<string>("");
+  const [udtContent, setUdtContent] = useState<string>("");
+  const [udtId, setUdtId] = useState<number>(0);
+  let [allList, setList] = useRecoilState(todoListState);
+  const [filter, setFilter] = useRecoilState(todoFilter);
+  const [listCountArr, setTodoCount] = useRecoilState(todoCountState);
+  const [page, setPage] = useState<number>(1);
+  let listCount: number;
+  let bgColor: [string, colorENUM];
+  let getServerAction: number;
+  switch (filter) {
+    case "all":
+      listCount = 0;
+      bgColor = ["bg-orange-100", "ORANGE"];
+      // getServerAction = "getList";
+      getServerAction = 0;
+      break;
+    case "complete":
+      listCount = 1;
+      bgColor = ["bg-green-100", "GREEN"];
+      // getServerAction = "getCompleteList";
+      getServerAction = 1;
+      break;
+    case "progress":
+    default:
+      listCount = 2;
+      bgColor = ["bg-sky-100", "SKY"];
+      // getServerAction = "getNotCompleteList";
+      getServerAction = 2;
+  }
   const ChangeFilter = () => {
     switch (filter) {
       case "complete":
@@ -27,34 +70,6 @@ const Todo = (): JSX.Element => {
         setFilter("complete");
     }
   };
-  const navigate = useNavigate();
-  const [addContent, setAddContent] = useState<string>("");
-  const [udtContent, setUdtContent] = useState<string>("");
-  const [udtId, setUdtId] = useState<number>(0);
-  const [allList, setList] = useRecoilState(todoListState);
-  const [filter, setFilter] = useRecoilState(todoFilter);
-  const list = useRecoilValue(todoListReducer);
-  const [listCountArr, setTodoCount] = useRecoilState(todoCountState);
-  let listCount: number;
-  let bgColor: [string, colorEnum];
-  let getServerAction: string;
-  switch (filter) {
-    case "all":
-      listCount = listCountArr[0];
-      bgColor = ["bg-orange-100", "ORANGE"];
-      getServerAction = "getList";
-      break;
-    case "complete":
-      listCount = listCountArr[1];
-      bgColor = ["bg-green-100", "GREEN"];
-      getServerAction = "getCompleteList";
-      break;
-    case "progress":
-    default:
-      listCount = listCountArr[2];
-      bgColor = ["bg-sky-100", "SKY"];
-      getServerAction = "getNotCompleteList";
-  }
   const getTargetArrIDX = (list: ITodo[], id: number): [ITodo[], number] => {
     let index: number = 0;
     let temp = list.map((item, idx) => {
@@ -84,24 +99,22 @@ const Todo = (): JSX.Element => {
   };
   const getCount = async () => {
     try {
-      const { data } = await axios({
-        method: "get",
-        url: "http://localhost:3080/api/todo/getCount",
-      });
-      setTodoCount([data[0].CNT + data[1].CNT, data[0].CNT, data[1].CNT]);
+      await getCountArrMutate.mutate();
+      setTodoCount((current) =>
+        getCountArrMutate.data ? getCountArrMutate.data : current
+      );
     } catch (err) {
       console.error(err);
     }
   };
+  // getListMutate.mutate([getServerAction, page]);
   const getServerList = async (page: number) => {
     try {
-      filter;
-      const { data } = await axios({
-        method: "get",
-        url: `http://localhost:3080/api/todo/${getServerAction}`,
-        params: { page: page },
-      });
-      setList([...data]);
+      await getListMutate.mutate([getServerAction, page]);
+      // setList((current) =>
+      //   getListMutate.data ? [...getListMutate.data] : current
+      // );
+      allList = getListMutate.data ? getListMutate.data : allList;
     } catch (err) {
       console.error(err);
     }
@@ -132,7 +145,7 @@ const Todo = (): JSX.Element => {
         data: { id },
       });
       if (data[0] === 1) {
-        const target = allList.find((item) => item.id == id);
+        const target = allList.find((item) => item.id === id);
         if (target) {
           setTodoCount((currentValue) =>
             target.isComplete
@@ -192,59 +205,163 @@ const Todo = (): JSX.Element => {
       console.error(err);
     }
   };
+  // let { currentPage } = useParams();
+  // useMemo(() => {
+  //   if (!isNaN(Number(currentPage))) {
+  //     setPage(Number(currentPage));
+  //   }
+  // }, []);
+  let temp = useParams()?.page;
+  let currentPage = temp ? +temp : 1;
+  const { data, isLoading, isFetched, isPending } = useQuery<
+    { listData: ITodo[]; count: [number, number, number] } | undefined
+  >({
+    queryKey: ["d", "s", "d"],
+    queryFn: async () => {
+      try {
+        const getServerAction = [
+          "getList",
+          "getCompleteList",
+          "getNotCompleteList",
+        ];
+        const listData = await axios({
+          method: "get",
+          url: `http://localhost:3080/api/todo/${getServerAction[listCount]}`,
+          data: temp,
+        });
+        const listCountArr = await axios({
+          method: "get",
+          url: `http://localhost:3080/api/todo/getCount`,
+        });
+        const cntData = listCountArr.data;
+        return {
+          listData: listData.data,
+          count: [
+            cntData[0].CNT + cntData[1].CNT,
+            cntData[0].CNT,
+            cntData[1].CNT,
+          ],
+        };
+      } catch (err) {
+        console.error(err);
+        return undefined;
+      }
+    },
+    // refetchOnReconnect: true,
+    refetchOnMount: "always",
+  });
+
+  // if (isFetched && !isLoading && !isPending) {
+  //   setList((current) => (data?.listData ? data?.listData : current));
+  //   setTodoCount((current) => (data?.count ? data.count : current));
+  // }
+  const mutateRun = getListMutate.mutate;
+  const mutateRunCount = getCountArrMutate.mutate;
+  useEffect(() => {
+    // if (Number(temp) !== page) {
+    // if (isNaN(Number(temp))) {
+    //   setPage(1);
+    // } else {
+    //   if ((Number(temp) - 1) * 10 > listCount) {
+    //     setPage(1);
+    //   } else {
+    //     setPage(Number(temp));
+    //   }
+    // }
+    // }
+    // setPage(currentPage);
+    // if (!isLoading) {
+    // }
+    // setList((current) => (data?.listData ? data.listData : current));
+    // console.log(page);
+    mutateRun([listCount, currentPage]);
+    mutateRunCount();
+    console.log("실행중");
+    // getServerList(currentPage);
+    // getCount();
+    // allList = temp ? temp : [];
+  }, [temp, currentPage, data, listCount, allList, mutateRun, mutateRunCount]);
+  // getCount();
+  // getServerList(page);
+
+  // const { data, isLoading } = useQuery<
+  //   { listData: ITodo[]; count: [number, number, number] } | undefined
+  // >({
+  //   queryKey: ["d", "s", "d"],
+  //   queryFn: async () => {
+  //     try {
+  //       const getServerAction = [
+  //         "getList",
+  //         "getCompleteList",
+  //         "getNotCompleteList",
+  //       ];
+  //       const listData = await axios({
+  //         method: "get",
+  //         url: `http://localhost:3080/api/todo/${getServerAction[listCount]}`,
+  //       });
+  //       const listCountArr = await axios({
+  //         method: "get",
+  //         url: `http://localhost:3080/api/todo/getCount`,
+  //       });
+  //       const cntData = listCountArr.data;
+  //       return {
+  //         listData: listData.data,
+  //         count: [
+  //           cntData[0].CNT + cntData[1].CNT,
+  //           cntData[0].CNT,
+  //           cntData[1].CNT,
+  //         ],
+  //       };
+  //     } catch (err) {
+  //       console.error(err);
+  //       return undefined;
+  //     }
+  //   },
+  // });
+  // allList = data;
+  // let tempodata1 = data?.listData;
+  // let tempodata2 = data?.count[listCount];
+  let listTest = [];
+  listTest = getListMutate.data ? getListMutate.data : [];
+  let count = 0;
+  count = getCountArrMutate.data ? getCountArrMutate.data[listCount] : 0;
+
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <TodoComp
-            ChangeFilter={ChangeFilter}
-            filter={filter}
-            listCount={listCount}
-            list={list}
-            addContent={addContent}
-            udtContent={udtContent}
-            udtId={udtId}
-            bgColor={bgColor}
-            getServerList={getServerList}
-            getCount={getCount}
-            addServerList={addServerList}
-            deleteServerList={deleteServerList}
-            updateServerList={updateServerList}
-            completeServerList={completeServerList}
-            writeAddContent={writeAddContent}
-            writeUdtContent={writeUdtContent}
-            writeUdtId={writeUdtId}
-            navigate={navigate}
-          />
-        }
-      />
-      <Route
-        path=":page"
-        element={
-          <TodoComp
-            ChangeFilter={ChangeFilter}
-            filter={filter}
-            listCount={listCount}
-            list={list}
-            addContent={addContent}
-            udtContent={udtContent}
-            udtId={udtId}
-            bgColor={bgColor}
-            getServerList={getServerList}
-            getCount={getCount}
-            addServerList={addServerList}
-            deleteServerList={deleteServerList}
-            updateServerList={updateServerList}
-            completeServerList={completeServerList}
-            writeAddContent={writeAddContent}
-            writeUdtContent={writeUdtContent}
-            writeUdtId={writeUdtId}
-            navigate={navigate}
-          />
-        }
-      />
-    </Routes>
+    <TodoComp
+      ChangeFilter={ChangeFilter}
+      filter={filter}
+      listCount={
+        getCountArrMutate.isPending
+          ? 0
+          : getCountArrMutate?.data
+          ? getCountArrMutate.data[listCount]
+          : count
+      }
+      // listCountArr[listCount]
+      // isLoading ? 0 : data?.count ? data.count[listCount] : 0
+      // getCountArrMutate.data
+      //   ? getCountArrMutate.data[listCount]
+      //   : 0
+      // }
+      // listCount={listCountArr[listCount]}
+      // list={isLoading ? [] : data?.listData ? data.listData : []}
+      list={getListMutate.data ? getListMutate.data : listTest}
+      addContent={addContent}
+      udtContent={udtContent}
+      udtId={udtId}
+      bgColor={bgColor}
+      getServerList={getServerList}
+      getCount={getCount}
+      addServerList={addServerList}
+      deleteServerList={deleteServerList}
+      updateServerList={updateServerList}
+      completeServerList={completeServerList}
+      writeAddContent={writeAddContent}
+      writeUdtContent={writeUdtContent}
+      writeUdtId={writeUdtId}
+      navigate={navigate}
+      page={currentPage}
+    />
   );
 };
 

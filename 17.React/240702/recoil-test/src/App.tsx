@@ -1,12 +1,10 @@
-import { Suspense } from "react";
-import Todo from "./container/todo";
+import Todo from "./container/TodoTransport";
+// import Todo from "./mutation/todo";
 
 const App = (): JSX.Element => {
   return (
     <div>
-      <Suspense fallback={<h1>now Loading!!!</h1>}>
-        <Todo />
-      </Suspense>
+      <Todo />
     </div>
   );
 };

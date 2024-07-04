@@ -1,9 +1,9 @@
 import { ReactNode, MouseEvent } from "react";
 
-export type colorEnum = "SKY" | "GREEN" | "RED" | "ORANGE" | "WHITE";
+export type colorENUM = "SKY" | "GREEN" | "RED" | "ORANGE" | "WHITE";
 
 export interface IProps {
-  color: colorEnum;
+  color: colorENUM;
   children: string | ReactNode;
   onClick?: () => void;
 }

@@ -1,7 +1,7 @@
 import { ITodo } from "../context/todo";
 import { ChangeEvent, useEffect, MouseEvent } from "react";
 import { Link, useParams } from "react-router-dom";
-import Button, { colorEnum, ButtonClassName } from "../button/Button";
+import Button, { colorENUM, ButtonClassName } from "../button/Button";
 import TodoItem from "./TodoItem";
 
 export interface IProps {
@@ -11,7 +11,7 @@ export interface IProps {
   addContent: string;
   udtContent: string;
   udtId: number;
-  bgColor: [string, colorEnum];
+  bgColor: [string, colorENUM];
   navigate: (address: string) => void;
   ChangeFilter(): void;
   getServerList(page: number): void;
@@ -23,6 +23,7 @@ export interface IProps {
   writeAddContent({ target: { value } }: ChangeEvent<HTMLInputElement>): void;
   writeUdtContent({ target: { value } }: ChangeEvent<HTMLInputElement>): void;
   writeUdtId({ target: { value } }: ChangeEvent<HTMLInputElement>): void;
+  page: number;
 }
 
 const Todo = ({
@@ -34,33 +35,34 @@ const Todo = ({
   addContent,
   udtId,
   udtContent,
+  page,
   addServerList,
   writeAddContent,
   completeServerList,
   deleteServerList,
-  getServerList,
+  // getServerList,
   writeUdtContent,
   writeUdtId,
   updateServerList,
-  getCount,
-  navigate,
-}: IProps): JSX.Element => {
-  let temp = useParams()?.page;
-  temp = temp ? temp : "";
-  let page: number;
-  if (isNaN(+temp)) {
-    page = 1;
-  } else {
-    if ((+temp - 1) * 10 > listCount) {
-      page = 1;
-    } else {
-      page = +temp;
-    }
-  }
-  useEffect(() => {
-    getServerList(page);
-    getCount();
-  }, [page, filter]);
+}: // getCount,
+// navigate,
+IProps): JSX.Element => {
+  // let temp = useParams()?.page;
+  // temp = temp ? temp : "";
+  // let page: number;
+  // if (isNaN(+temp)) {
+  //   page = 1;
+  // } else {
+  //   if ((+temp - 1) * 10 > listCount) {
+  //     page = 1;
+  //   } else {
+  //     page = +temp;
+  //   }
+  // }
+  // useEffect(() => {
+  //   getServerList(page);
+  //   getCount();
+  // }, [page, filter]);
   return (
     <div className="container mx-auto py-10 flex flex-col justify-center bg-gray-200 rounded-md">
       <div className="p-3 flex flex-col items-center bg-blue-500 rounded-t-lg">
@@ -204,13 +206,13 @@ const Todo = ({
             className={
               ButtonClassName +
               `${
-                page * 10 > listCount
+                page * 10 > listCount - 1
                   ? "bg-gray-600"
                   : "bg-orange-200 hover:bg-orange-400 "
               }`
             }
             onClick={
-              page * 10 > listCount
+              page * 10 > listCount - 1
                 ? (e: MouseEvent<HTMLAnchorElement>) => e.preventDefault()
                 : () => {}
             }
