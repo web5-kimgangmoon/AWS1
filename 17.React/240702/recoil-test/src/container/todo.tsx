@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, useMemo, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   todoFilter,
   todoListState,
@@ -30,7 +30,8 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
   const [addContent, setAddContent] = useState<string>("");
   const [udtContent, setUdtContent] = useState<string>("");
   const [udtId, setUdtId] = useState<number>(0);
-  let [allList, setList] = useRecoilState(todoListState);
+  // let [allList, setList] = useRecoilState(todoListState);
+  const setList = useSetRecoilState(todoListState);
   const [filter, setFilter] = useRecoilState(todoFilter);
   const [listCountArr, setTodoCount] = useRecoilState(todoCountState);
   const [page, setPage] = useState<number>(1);
@@ -108,13 +109,13 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
     }
   };
   // getListMutate.mutate([getServerAction, page]);
-  const getServerList = async (page: number) => {
+  const getServerList = async ([listCount, currentPage]: [number, number]) => {
     try {
-      await getListMutate.mutate([getServerAction, page]);
-      // setList((current) =>
-      //   getListMutate.data ? [...getListMutate.data] : current
-      // );
-      allList = getListMutate.data ? getListMutate.data : allList;
+      await getListMutate.mutate([listCount, currentPage]);
+      setList((current) =>
+        getListMutate.data ? [...getListMutate.data] : current
+      );
+      // allList = getListMutate.data ? getListMutate.data : allList;
     } catch (err) {
       console.error(err);
     }
@@ -131,7 +132,7 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
         currentValue[1],
         currentValue[2] + 1,
       ]);
-      getServerList(page);
+      // getServerList(page);
       navigate("/1", {});
     } catch (err) {
       console.error(err);
@@ -145,15 +146,15 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
         data: { id },
       });
       if (data[0] === 1) {
-        const target = allList.find((item) => item.id === id);
-        if (target) {
-          setTodoCount((currentValue) =>
-            target.isComplete
-              ? [currentValue[0] - 1, currentValue[1] - 1, currentValue[2]]
-              : [currentValue[0] - 1, currentValue[1], currentValue[2] - 1]
-          );
-        }
-        getServerList(page);
+        // const target = allList.find((item) => item.id === id);
+        // if (target) {
+        //   setTodoCount((currentValue) =>
+        //     target.isComplete
+        //       ? [currentValue[0] - 1, currentValue[1] - 1, currentValue[2]]
+        //       : [currentValue[0] - 1, currentValue[1], currentValue[2] - 1]
+        //   );
+        // }
+        // getServerList(page);
 
         navigate("/1", { state: { page: 1 } });
       } else {
@@ -171,11 +172,11 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
         data: { id, content },
       });
       if (data[0] === 1) {
-        setList(
-          allList.map((item) =>
-            item.id === id ? { ...item, content: content } : item
-          )
-        );
+        // setList(
+        //   allList.map((item) =>
+        //     item.id === id ? { ...item, content: content } : item
+        //   )
+        // );
       } else {
         console.log("todo 리스트 업데이트 실패!");
       }
@@ -191,13 +192,13 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
         data: { id },
       });
       if (data[0] === 1) {
-        const [temp, index] = getTargetArrIDX(allList, id);
-        setTodoCount((currentValue) =>
-          temp[index].isComplete // targetComplete
-            ? [currentValue[0], currentValue[1] + 1, currentValue[2] - 1]
-            : [currentValue[0], currentValue[1] - 1, currentValue[2] + 1]
-        );
-        getServerList(page);
+        // const [temp, index] = getTargetArrIDX(allList, id);
+        // setTodoCount((currentValue) =>
+        //   temp[index].isComplete // targetComplete
+        //     ? [currentValue[0], currentValue[1] + 1, currentValue[2] - 1]
+        //     : [currentValue[0], currentValue[1] - 1, currentValue[2] + 1]
+        // );
+        // getServerList(page);
       } else {
         console.log("todo 리스트 완료 토글 실패!!");
       }
@@ -274,13 +275,14 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
     // }
     // setList((current) => (data?.listData ? data.listData : current));
     // console.log(page);
-    mutateRun([listCount, currentPage]);
+    getServerList([listCount, currentPage]);
     mutateRunCount();
-    console.log("실행중");
+    // console.log("currentPage");
+    // console.log(currentPage);
     // getServerList(currentPage);
     // getCount();
     // allList = temp ? temp : [];
-  }, [temp, currentPage, data, listCount, allList, mutateRun, mutateRunCount]);
+  }, [temp, currentPage, data, listCount, mutateRunCount]);
   // getCount();
   // getServerList(page);
 
@@ -345,12 +347,12 @@ const Todo = ({ getListMutate, getCountArrMutate }: IProps): JSX.Element => {
       // }
       // listCount={listCountArr[listCount]}
       // list={isLoading ? [] : data?.listData ? data.listData : []}
-      list={getListMutate.data ? getListMutate.data : listTest}
+      // list={getListMutate.data ? getListMutate.data : listTest}
       addContent={addContent}
       udtContent={udtContent}
       udtId={udtId}
       bgColor={bgColor}
-      getServerList={getServerList}
+      // getServerList={getServerList}
       getCount={getCount}
       addServerList={addServerList}
       deleteServerList={deleteServerList}

@@ -3,18 +3,20 @@ import { ChangeEvent, useEffect, MouseEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button, { colorENUM, ButtonClassName } from "../button/Button";
 import TodoItem from "./TodoItem";
+import { todoListState } from "../context/todo";
+import { useRecoilValue } from "recoil";
 
 export interface IProps {
   filter: string;
   listCount: number;
-  list: ITodo[];
+  // list: ITodo[];
   addContent: string;
   udtContent: string;
   udtId: number;
   bgColor: [string, colorENUM];
   navigate: (address: string) => void;
   ChangeFilter(): void;
-  getServerList(page: number): void;
+  // getServerList(page: number): void;
   getCount(): void;
   addServerList(content: string, page: number): void;
   deleteServerList(id: number, page: number): void;
@@ -31,7 +33,7 @@ const Todo = ({
   bgColor,
   filter,
   listCount,
-  list,
+  // list,
   addContent,
   udtId,
   udtContent,
@@ -63,6 +65,8 @@ IProps): JSX.Element => {
   //   getServerList(page);
   //   getCount();
   // }, [page, filter]);
+  const list = useRecoilValue(todoListState);
+  console.log(list);
   return (
     <div className="container mx-auto py-10 flex flex-col justify-center bg-gray-200 rounded-md">
       <div className="p-3 flex flex-col items-center bg-blue-500 rounded-t-lg">
